@@ -42,7 +42,7 @@ pipeline {
                     }
                 }
             }
-        stage("Quality gate") {
+        stage("SonarQube Quality gate") {
             steps {
                 waitForQualityGate abortPipeline: true
             }
