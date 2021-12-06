@@ -30,6 +30,13 @@ pipeline {
             }
         }
         stage('Install Typescript') {
+            agent {
+                docker { 
+                    image 'node:14-alpine'
+                    args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
+                    reuseNode true
+                }
+            }
         steps {
            sh 'npm install typescript'
             }
