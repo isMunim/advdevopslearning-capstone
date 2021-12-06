@@ -8,14 +8,22 @@ pipeline {
         }
     stages {
         stage('Setting Up') {
-             agent {
-                docker { 
-                    image 'node:14-alpine'
-                    args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
-                    reuseNode true
-                }
-            }
+            //  agent {
+            //     docker { 
+            //         image 'node:14-alpine'
+            //         args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
+            //         reuseNode true
+            //     }
+            // }
             steps {
+                nodejs(nodeJSInstallationName: 'nodejs-global'){
+                sh "npm install"
+                checkout scm
+                sh 'ls -a'
+                sh 'npm install'
+                sh 'npm test'
+           }
+       
                 //Not needed since using gitscm
                 //echo 'Retrieve source from github. run npm install and npm test'
                 //git branch: 'jenkins-testing',
@@ -24,10 +32,10 @@ pipeline {
                 //sh 'ls -a'
                 //sh 'npm install'
                 //sh 'npm test'
-                checkout scm
-                sh 'ls -a'
-                sh 'npm install'
-                sh 'npm test'
+                // checkout scm
+                // sh 'ls -a'
+                // sh 'npm install'
+                // sh 'npm test'
             }
         }
         stage('Code Quality Check via SonarQube') {
