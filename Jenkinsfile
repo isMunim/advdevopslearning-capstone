@@ -47,24 +47,24 @@ pipeline {
                 }
             }
         }     
-        //  stage('deploy to k8s') {
-        //      agent {
-        //         docker { 
-        //             image 'google/cloud-sdk:latest'
-        //             args '-e HOME=/tmp'
-        //             reuseNode true
-        //                 }
-        //             }
-        //     steps {
-        //         echo 'connecting to the GKE cluster'
-        //         sh 'gcloud container clusters get-credentials nodejs-cluster --zone us-central1-a --project dtc-102021-u112'
-        //         // Setting namespace context. Not needed if your node app is running in default ns.
-        //         sh 'kubectl config set-context --current --namespace=nodejs'
-        //         echo 'set image to update the container'
-        //         // Changing the iage the gke deployment
-        //         sh 'kubectl set image deployment/node-frontend-deployment node-frontend=$imageName:$BUILD_NUMBER'
-        //     }
-        // }     
+         stage('deploy to k8s') {
+             agent {
+                docker { 
+                    image 'google/cloud-sdk:latest'
+                    args '-e HOME=/tmp'
+                    reuseNode true
+                        }
+                    }
+            steps {
+                echo 'connecting to the GKE cluster'
+                sh 'gcloud container clusters get-credentials nodejs-cluster --zone us-central1-a --project helpful-passage-334302'
+                // Setting namespace context. Not needed if your node app is running in default ns.
+                sh 'kubectl config set-context --current --namespace=nodejs'
+                echo 'set image to update the container'
+                // Changing the iage the gke deployment
+                sh 'kubectl set image deployment/node-frontend-deployment node-frontend=$imageName:$BUILD_NUMBER'
+            }
+        }     
         stage('Remove local docker image') {
             steps{
                 // removing the stale images
