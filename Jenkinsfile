@@ -42,6 +42,13 @@ pipeline {
             }
          }
         stage('Code Quality Check via SonarQube') {
+            agent {
+                docker { 
+                    image 'node:14-alpine'
+                    args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
+                    reuseNode true
+                }
+            }
             steps {
                 script {
                 def scannerHome = tool 'sonarqube-scanner';
