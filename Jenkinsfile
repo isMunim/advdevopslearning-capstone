@@ -15,6 +15,7 @@ pipeline {
                 }
             }
             steps {
+                //Not needed since using gitscm
                 //echo 'Retrieve source from github. run npm install and npm test'
                 //git branch: 'jenkins-testing',
                 //    url: 'https://github.com/isMunim/AdvDevOpsLearning-Frontend.git'
