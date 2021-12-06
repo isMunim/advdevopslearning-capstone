@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-        registryCredential = 'docker'
+        registryCredential = 'dockerhub'
         imageName = 'ismunim/nodejs-frontend'
         dockerImage = ''
         }
