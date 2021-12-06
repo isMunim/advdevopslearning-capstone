@@ -29,13 +29,20 @@ pipeline {
                 sh 'npm test'
             }
         }
-        stage('Code Quality Test') {
-            steps{
+        stage('Code Quality Check via SonarQube') {
+            steps {
                 script {
-                    echo 'Running SonarQube' 
-                    
+                def scannerHome = tool 'sonarqube';
+                    withSonarQubeEnv("SonarQube") {
+                    sh "${tool("sonarqube")}/bin/sonar-scanner \
+                    -Dsonar.projectKey=test-node-js \
+                    -Dsonar.sources=./ \
+                    -Dsonar.css.node=. \
+                    -Dsonar.host.url=http://34.132.234.67:9000/ \
+                    -Dsonar.login=abb0ef2ebd7599d10b626693f7ec928fbff4b5e7"
+                        }
+                    }
                 }
-            }
             }
         stage('Building image') {
             steps{
