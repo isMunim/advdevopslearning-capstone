@@ -32,9 +32,9 @@ pipeline {
         stage('Code Quality Check via SonarQube') {
             steps {
                 script {
-                def scannerHome = tool 'sonarqube';
+                def scannerHome = tool 'sonarqube-scanner';
                     withSonarQubeEnv("SonarQube") {
-                    sh "${tool("sonarqube")}/bin/sonar-scanner \
+                    sh "${tool("sonarqube-scanner")}/bin/sonar-scanner \
                     -Dsonar.projectKey=test-node-js \
                     -Dsonar.sources=./ \
                     -Dsonar.css.node=. \
