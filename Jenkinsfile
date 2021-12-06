@@ -17,7 +17,6 @@ pipeline {
             // }
             steps {
                 nodejs(nodeJSInstallationName: 'nodejs-global'){
-                sh "npm install"
                 checkout scm
                 sh 'ls -a'
                 sh 'npm install'
