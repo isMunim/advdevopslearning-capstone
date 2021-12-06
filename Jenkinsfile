@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-                docker { 
-                    image 'node:14-alpine'
-                    args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
-                    reuseNode true
-                }
-            }
+    agent any 
     environment {
         registryCredential = 'dockerhub'
         imageName = 'ismunim/nodejs-frontend'
@@ -13,7 +7,13 @@ pipeline {
         }
     stages {
         stage('Setting Up') {
-             
+             agent {
+                docker { 
+                    image 'node:14-alpine'
+                    args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
+                    reuseNode true
+                }
+            }
             steps {
                 //Not needed since using gitscm
                 //echo 'Retrieve source from github. run npm install and npm test'
@@ -29,11 +29,6 @@ pipeline {
                 sh 'npm test'
             }
         }
-        stage('Install Typescript') {
-        steps {
-           sh 'npm install typescript'
-            }
-         }
         stage('Code Quality Check via SonarQube') {
             steps {
                 script {
