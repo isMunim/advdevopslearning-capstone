@@ -7,6 +7,7 @@ pipeline {
         dockerImage = ''
         }
     stages {
+        // comment here
         stage('Setting Up') {
              agent {
                 docker { 
