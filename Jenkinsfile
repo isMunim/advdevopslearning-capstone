@@ -29,6 +29,14 @@ pipeline {
                 sh 'npm test'
             }
         }
+        stage('Code Quality Test') {
+            steps{
+                script {
+                    echo 'Running SonarQube' 
+                    
+                }
+            }
+            }
         stage('Building image') {
             steps{
                 script {
