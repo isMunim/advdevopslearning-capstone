@@ -29,6 +29,11 @@ pipeline {
                 sh 'npm test'
             }
         }
+        stage('Install Typescript') {
+        steps {
+           sh 'npm install typescript'
+            }
+         }
         stage('Code Quality Check via SonarQube') {
             steps {
                 script {
